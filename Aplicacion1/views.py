@@ -8,15 +8,17 @@ def iniciodesesion(request):
 
 def login(request):
     return redirect(request, 'inicio.html')
+
 def register(request):
-    if request.method == "POST":
-        form = NewRegister(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login_url')
-        else:
-            form = NewRegister()
-    return render(request, 'registration/register.html',{'form':NewRegister})
+    data = {
+        'form' : NewRegister()
+    }
+    if request.method == 'POST' :
+        user_creation_form = NewRegister(data=request.POST)
+        if user_creation_form.is_valid():
+            user_creation_form.save()
+            return redirect('inicio')
+    return render(request, 'registration/register.html',data)
 
 
 @login_required
