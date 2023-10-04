@@ -11,18 +11,34 @@
 </div>
 </head>
 <body>
+    <style>
+        body{
+          background: #304352;  /* fallback for old browsers */
+          background: -webkit-linear-gradient(to right, #d7d2cc, #304352);  /* Chrome 10-25, Safari 5.1-6 */
+          background: linear-gradient(to right, #d7d2cc, #304352); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */             
+      }
+      </style>
     <div class="container">
     <br>
     <form action="" method="post">
         {% csrf_token %}
         <div class="card">
             <div class="card-body">
-                <input type="text" name="username" id="" placeholder="Nombre de Usuario">
-                <br>
-                <input type="password" name="password" id="" placeholder="Contraseña">
-                <br>
-                <br>
-                <button type="submit">Iniciar Sesión</button>
+                <div class="mb-3">
+                    <label for="Nombredeusuario" class="form-label">Nombre de Usuario</label>
+                      <input type="text" class="form-control" id="Nombredeusuario" aria-describedby="emailHelp">
+                      <div id="emailHelp" class="form-text">Nunca compartas tu usuario.</div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="contrasena" class="form-label">Ingrese su contraseña</label>
+                      <input type="password" class="form-control" id="contrasena">
+                    </div>
+                    <div class="mb-3 form-check">
+                      <input type="checkbox" class="form-check-input" id="recordar">
+                      <label class="form-check-label" for="recordar">Recordarme</label>
+                    </div>
+                    <button type="iniciodesesion" class="btn btn-primary">Iniciar sesion</button>
+                  </form>
             </div>
           </div>
     </form>
