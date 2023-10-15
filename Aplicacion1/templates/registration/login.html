@@ -20,24 +20,24 @@
       </style>
     <div class="container">
     <br>
-    <form action="" method="post">
+    <form action="" method="post">                                
         {% csrf_token %}
         <div class="card">
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="Nombredeusuario" class="form-label">Nombre de Usuario</label>
-                      <input type="text" class="form-control" id="Nombredeusuario" aria-describedby="emailHelp">
+                    <label for="username" class="form-label">Nombre de Usuario</label>           <!--cambio de nombredeusuario a username, asi deberia leer la tabla de la base de datos-->
+                      <input type="text" name='username'class="form-control" id="Nombredeusuario" aria-describedby="emailHelp"> <!--agregue el name=username-->
                       <div id="emailHelp" class="form-text">Nunca compartas tu usuario.</div>
                     </div>
                     <div class="mb-3">
-                      <label for="contrasena" class="form-label">Ingrese su contraseña</label>
-                      <input type="password" class="form-control" id="contrasena">
+                      <label for="password" class="form-label">Ingrese su contraseña</label>
+                      <input type="password" name="password" class="form-control" id="password">  <!--falataba name=password por eso no iniciaba sesion-->
                     </div>
                     <div class="mb-3 form-check">
                       <input type="checkbox" class="form-check-input" id="recordar">
                       <label class="form-check-label" for="recordar">Recordarme</label>
                     </div>
-                    <button type="iniciodesesion" class="btn btn-primary">Iniciar sesion</button>
+                    <button type="submit" class="btn btn-primary">Iniciar sesion</button>   <!--cambio de type a submit por si acaso(antes era iniciodesesion)-->   
                   </form>
             </div>
           </div>
