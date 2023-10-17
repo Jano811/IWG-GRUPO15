@@ -39,7 +39,7 @@
             {% block content %}
             {% if user.is_authenticated %}
                 <a href="{% url 'logout' %}">Salir</a>
-                <a href="{% url 'inicio' %}">Inicio</a>
+                <a href="{% url 'iniciodesesion' %}">Inicio</a>
             {% else %}
                 <a button type="button" class="btn btn-dark"/button href="{% url 'login_url' %}">Iniciar Sesión</a>
                 <a button type="button" class="btn btn-dark"/button href="{% url 'register_url' %}">Registrarse</a>

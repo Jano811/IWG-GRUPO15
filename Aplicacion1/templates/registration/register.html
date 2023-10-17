@@ -26,7 +26,7 @@
             <form action="" method="post">
                 {% csrf_token %}
                 {{ form | crispy }}
-                <a href={% url 'iniciodesesion' %} class="card-link">Volver</a> <!--boton para deolverse a inicio-->
+                <a href={% url 'iniciodesesion' %} class="card-link">Volver</a> <!--boton para devolverse a inicio-->
                 <button class="btn btn-primary at-4" type="submit" >Registrarse</button>
             </form>
         </div>
