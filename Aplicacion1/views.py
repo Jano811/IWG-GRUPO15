@@ -29,10 +29,10 @@ def psd(request): #no funciona?
     return render(request,'psd.html')
     
 def cuestionario(request):
-    return render(request, 'cuestionario.html')
+    return render(request,'cuestionario.html')
 
 
 
 @login_required
-def inicio(request):
+def inicio(request):#posible problema
     return render(request,'inicio.html')

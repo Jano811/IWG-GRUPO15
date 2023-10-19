@@ -8,6 +8,6 @@ urlpatterns = [
     path('register/',register,name="register_url"),
     path('logout/',LogoutView.as_view(),name="logout"),
     path('inicio/',inicio,name="inicio"),
-    path('cuestionario/',cuestionario,name='cuestionario_url'),
-    path('psd/',psd,name='psd_url'),
+    path('cuestionario/',cuestionario,name="cuestionario_url"),
+    path('psd/',psd,name="psd_url"),
 ]
