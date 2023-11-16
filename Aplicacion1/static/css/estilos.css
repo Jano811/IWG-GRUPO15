@@ -20,5 +20,8 @@ body{
     font-family: verdana;
     text-align: center;
     position: relative;
-    top: 490px;
+    top: 170px;
 }
+.border-success {
+    --bs-border-opacity: 0.5;
+  }
