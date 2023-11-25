@@ -5,6 +5,7 @@
         <h2>Cuestionario</h2>
         <form method="POST">
             {% csrf_token %}
+                <input type="hidden" name="pregunta_pk" value="{{ pregunta.id }}">
                 <div class="container">
                     <div class="preguntas">
                         <h3>{{ pregunta.texto }}</h3>
@@ -12,12 +13,15 @@
                             <div class="container">
                                 {% for respuesta in pregunta.opciones.all %}
                                     <li>
-                                        <input type="radio" name="respuesta_seleccionada" value="{{ respuesta.id }}"> 
+                                        <input type="radio" name="respuesta_pk" value="{{ respuesta.id }}"> 
                                         {{ respuesta.texto }} 
                                     </li>
                                 {% endfor %}
                             </div>
                         </ul>
+                        {% if request.method == 'POST' and not pregunta_pk %}
+                        <p style="color: red;">Debes seleccionar una respuesta para continuar.</p>
+                    {% endif %}
                     </div>
                 </div>
                 <div class="container">

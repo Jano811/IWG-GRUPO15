@@ -8,7 +8,7 @@ class preguntas(models.Model):   #creacion de preguntas
     num_respuestas_correctas = 1  #cuantas respuestas correctas van a tener las preguntas
 
     texto = models.TextField(verbose_name='texto de pregunta')
-    max_puntaje = models.DecimalField(verbose_name='Maximo Puntaje', default=3, decimal_places=2, max_digits=6)
+    max_puntaje = models.DecimalField(verbose_name='Maximo Puntaje', default=1, decimal_places=0, max_digits=6)
     def __str__(self):
         return self.texto
     
@@ -23,25 +23,29 @@ class respuestas(models.Model):   #creacion de las respuestas
 
     def __str__(self):
         return self.texto
-    
+
 
 class Usuario(models.Model):     #saber quien respondio
     usuario= models.OneToOneField(User, on_delete=models.CASCADE)
-    puntajetotal= models.DecimalField(verbose_name='puntaje total',default=0,decimal_places=2,max_digits=10)
-
-    def intentos(self, pregunta):
-        intento  = preguntasrespondidas(pregunta=pregunta, quizuser = self)
+    puntajetotal= models.DecimalField(verbose_name='puntaje total',default=0,decimal_places=0,max_digits=10)
+    def __str__(self):
+        return f"{self.usuario.username}"             #muestra el nombre del usuario de la pregunta respondida en el admin
+    
+    def fintentos(self, pregunta):                           #guardar intentos
+        intento  = PreguntasRespondidas(pregunta=pregunta,quizuser=self)
         intento.save()
 
     def nuevas_preguntas(self):
-        respondidas = preguntasrespondidas.objects.filter(quizuser=self).values_list('pregunta__pk', flat=True)
+        respondidas = PreguntasRespondidas.objects.filter(quizuser=self).values_list('pregunta__pk', flat=True)
+        print(respondidas)
         preguntas_restantes = preguntas.objects.exclude(pk__in=respondidas)
+        print(preguntas_restantes)
         if not preguntas_restantes.exists():
             return None
         return random.choice(preguntas_restantes)
 
     def intento_valido(self, pregunta_respondida, respuesta_seleccionada):
-        if pregunta_respondida.pregunta != respuesta_seleccionada.pregunta:
+        if pregunta_respondida.pregunta_id != respuesta_seleccionada.pregunta_id:
             return
         
         pregunta_respondida.respuesta_seleccionada = respuesta_seleccionada
@@ -51,7 +55,7 @@ class Usuario(models.Model):     #saber quien respondio
             pregunta_respondida.respuesta = respuesta_seleccionada
 
         else:
-            pregunta_respondida.correcta = False
+            #pregunta_respondida.correcta = False
             pregunta_respondida.respuesta = respuesta_seleccionada
 
         pregunta_respondida.save() 
@@ -59,7 +63,7 @@ class Usuario(models.Model):     #saber quien respondio
 
     def actualizar_puntaje(self):
     # Filtrar preguntas respondidas del usuario actual
-        preguntas_respondidas = preguntasrespondidas.objects.filter(quizuser=self)
+        preguntas_respondidas = PreguntasRespondidas.objects.filter(quizuser=self)
     # Filtrar las preguntas respondidas que son correctas
         preguntas_correctas = preguntas_respondidas.filter(correcta=True)
     # Calcular el puntaje total sumando los puntajes obtenidos de las preguntas correctas
@@ -69,11 +73,12 @@ class Usuario(models.Model):     #saber quien respondio
         self.save()
 
 
-class preguntasrespondidas(models.Model):       #guarda las preguntas respondidas
-    quizuser = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True, related_name='intentos')  #por si acaso si el null no existe genera error al ya existir una base de datos e intentar modificarla despues
+class PreguntasRespondidas(models.Model):       #guarda las preguntas respondidas
+    quizuser = models.ForeignKey(Usuario, on_delete=models.CASCADE,related_name='intentos', null=True) 
     pregunta = models.ForeignKey(preguntas, on_delete=models.CASCADE)
-    respuesta =models.ForeignKey(respuestas, on_delete=models.CASCADE, null=True)
+    respuesta =models.ForeignKey(respuestas, on_delete=models.CASCADE,null=True)
     correcta = models.BooleanField(verbose_name='es esta la respuesta correcta?',default=False,null=False)
     puntaje_obtenido = models.DecimalField(verbose_name='Puntaje',default=0,decimal_places=2,max_digits=6)
-
+    def __str__(self):
+        return f"{self.quizuser.usuario.username} - {self.pregunta.texto}"   #texto de admin preguntas respondidas
 

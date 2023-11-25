@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import preguntas, respuestas, preguntasrespondidas
+from .models import preguntas, respuestas, PreguntasRespondidas, Usuario
 from .forms import ElegirUnaRespuestaCorrecta
 
 class ElegirRespuestaInline(admin.TabularInline):    #muestre en una tabla las respuestas
@@ -18,9 +18,10 @@ class preguntasrespondidasAdmin(admin.ModelAdmin):            #campos a mostrar
     list_display=['pregunta','respuestas','correcta','puntaje_obtenido']
 
     class Meta:
-        model= preguntasrespondidas
+        model= PreguntasRespondidas
 
 
-admin.site.register(preguntasrespondidas)
+admin.site.register(PreguntasRespondidas)
 admin.site.register(preguntas,PreguntaAdmin)
 admin.site.register(respuestas)
+admin.site.register(Usuario)

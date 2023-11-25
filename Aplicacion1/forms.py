@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import preguntas, respuestas, preguntasrespondidas #sin ninguna funcion por ahora
+from .models import preguntas, respuestas 
 
 class NewRegister(UserCreationForm):
     email= forms.EmailField(required=True)    
@@ -34,5 +34,5 @@ class ElegirUnaRespuestaCorrecta(forms.BaseInlineFormSet):
             raise forms.ValidationError('Solo una respuesta es valida')
         
 
-class RespuestaForm(forms.Form):
-    respuesta_seleccionada = forms.ModelChoiceField(queryset=respuestas.objects.all(), empty_label=None)
+#class RespuestaForm(forms.Form):
+    #respuesta_seleccionada = forms.ModelChoiceField(queryset=respuestas.objects.all(), empty_label=None)

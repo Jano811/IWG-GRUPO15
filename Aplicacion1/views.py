@@ -1,18 +1,17 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .forms import NewRegister, RespuestaForm
+from django.shortcuts import render, redirect,get_object_or_404
+from .forms import NewRegister#,RespuestaForm 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from .models import preguntas, respuestas, Usuario, preguntasrespondidas
-from django.http import HttpResponseRedirect, Http404
-from django.core.exceptions import ObjectDoesNotExist
-import pdb
+from .models import Usuario, PreguntasRespondidas,respuestas
+from django.http import HttpResponseBadRequest 
+
 
 
 
 def iniciodesesion(request):
     return render(request,'iniciodesesion.html')
 
-def login_user(request): #cambio de login a login_user, al confundirse con la variable login del register
+def login_user(request): #cambio de login a login_user, al confundirse con la variable login del register,,,,,creo que la funcion no hace nada
     return redirect(request, 'inicio.html')
 
 def register(request):  #formulario de registro, se guarda en la base de datos
@@ -27,7 +26,7 @@ def register(request):  #formulario de registro, se guarda en la base de datos
             login(request,user)  
             return redirect('iniciodesesion')
         else:
-            data['form']=user_creation_form    #no borra los datos si son incorrectos
+            data['form']=user_creation_form    #no borra todos los datos si se pone algo incorrecto
     return render(request, 'registration/register.html',data)
 
 #para que una view necesite haber iniciado sesion para entrar y no se evada entrando directo desde el link 
@@ -42,33 +41,44 @@ def inicio(request):
 
 @login_required
 def psd(request):
-    usuario, created = Usuario.objects.get_or_create(usuario=request.user)
-    nueva_pregunta = usuario.nuevas_preguntas()
-
-    opciones_respuesta = nueva_pregunta.opciones.all()
+    qusuario, created = Usuario.objects.get_or_create(usuario=request.user)  
     if request.method == 'POST':
-        form = RespuestaForm(request.POST)
-        if form.is_valid():
-            respuesta_seleccionada = form.cleaned_data['respuesta_seleccionada']
-            pregunta_respondida, created = preguntasrespondidas.objects.get_or_create(quizuser=usuario, pregunta=nueva_pregunta, defaults={'respuesta': respuesta_seleccionada})
-            if not created:
-                pregunta_respondida.respuesta = respuesta_seleccionada
-                pregunta_respondida.save()
-                usuario.save()
-                
-            # Redirige a la retroalimentación después de responder cada pregunta
-            return redirect('retroalimentacion_url') #, pregunta_respondida.pk
-        
+        pregunta_pk = request.POST.get('pregunta_pk')
+        respuesta_pk = request.POST.get('respuesta_pk')
+        print(f"pregunta_pk: {pregunta_pk}")
+        if not pregunta_pk or not respuesta_pk:
+            return HttpResponseBadRequest("El identificador de la pregunta no se proporcionó correctamente.")
+
+        prespondida, created = PreguntasRespondidas.objects.get_or_create(quizuser=qusuario,pregunta=pregunta_pk)
+
+        # Obtener la respuesta seleccionada
+        opcionselect = get_object_or_404(respuestas, pk=respuesta_pk)
+
+        # Asignar la respuesta seleccionada y guardar
+        prespondida.respuesta = opcionselect
+        prespondida.correcta = opcionselect.correcta
+        prespondida.puntaje_obtenido = opcionselect.pregunta.max_puntaje if opcionselect.correcta else 0
+        prespondida.save()
+
+        return redirect('retroalimentacion_url', prespondida.pk)   
+
     else:
-        form = RespuestaForm()
 
-    context = {
-        'pregunta': nueva_pregunta,
-        'opciones_respuesta': opciones_respuesta,
-        'form': form,
-    }
-
+        pregunta=qusuario.nuevas_preguntas()
+        if pregunta is not None:
+            qusuario.fintentos(pregunta)
+            
+        context = {'pregunta': pregunta}  
     return render(request, 'psd.html', context)
+
+def resultadospregunta(request, prespondida_pk):
+	respondida = get_object_or_404(PreguntasRespondidas, pk=prespondida_pk)
+    
+	context = {
+		'respondida':respondida
+	}
+	return render(request, 'retroalimentacion.html', context)
+
 
 
 @login_required
