@@ -13,7 +13,7 @@
 		<h4 class="text-success">Tu respuesta es correcta</h4>
 	{% else %}
 		<h4 class="text-danger">Tu respuesta es incorrecta</h4>
-
+		<p>Retroalimentacion: {{ retroalimentacion_pregunta|safe }}</p>
 		{% for respuesta in respondida.pregunta.opciones.all %}
 
 			{% if respuesta.correcta %}

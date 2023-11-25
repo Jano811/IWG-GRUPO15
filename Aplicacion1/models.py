@@ -9,6 +9,7 @@ class preguntas(models.Model):   #creacion de preguntas
 
     texto = models.TextField(verbose_name='texto de pregunta')
     max_puntaje = models.DecimalField(verbose_name='Maximo Puntaje', default=1, decimal_places=0, max_digits=6)
+    retroalimentacion = models.TextField(verbose_name='Retroalimentación', blank=True)
     def __str__(self):
         return self.texto
     
@@ -77,7 +78,7 @@ class PreguntasRespondidas(models.Model):       #guarda las preguntas respondida
     quizuser = models.ForeignKey(Usuario, on_delete=models.CASCADE,related_name='intentos', null=True) 
     pregunta = models.ForeignKey(preguntas, on_delete=models.CASCADE)
     respuesta =models.ForeignKey(respuestas, on_delete=models.CASCADE,null=True)
-    correcta = models.BooleanField(verbose_name='es esta la respuesta correcta?',default=False,null=False)
+    correcta = models.BooleanField(verbose_name='es correcta',default=False,null=False)
     puntaje_obtenido = models.DecimalField(verbose_name='Puntaje',default=0,decimal_places=2,max_digits=6)
     def __str__(self):
         return f"{self.quizuser.usuario.username} - {self.pregunta.texto}"   #texto de admin preguntas respondidas

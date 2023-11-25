@@ -11,7 +11,7 @@ class ElegirRespuestaInline(admin.TabularInline):    #muestre en una tabla las r
 class PreguntaAdmin(admin.ModelAdmin):
     model= respuestas
     inlines=(ElegirRespuestaInline, )  
-    list_display = ['texto',]
+    list_display = ['texto','retroalimentacion']
     search_fields = ['texto' 'preguntas__texto']  
 
 class preguntasrespondidasAdmin(admin.ModelAdmin):            #campos a mostrar

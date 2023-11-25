@@ -6,8 +6,6 @@ from .models import Usuario, PreguntasRespondidas,respuestas
 from django.http import HttpResponseBadRequest 
 
 
-
-
 def iniciodesesion(request):
     return render(request,'iniciodesesion.html')
 
@@ -42,7 +40,7 @@ def inicio(request):
 @login_required
 def psd(request):
     qusuario, created = Usuario.objects.get_or_create(usuario=request.user)  
-    if request.method == 'POST':
+    if request.method == 'POST':                        #se manda a la base la respuesta marcada y verifica si es correcta o no 
         pregunta_pk = request.POST.get('pregunta_pk')
         respuesta_pk = request.POST.get('respuesta_pk')
         print(f"pregunta_pk: {pregunta_pk}")
@@ -71,17 +69,18 @@ def psd(request):
         context = {'pregunta': pregunta}  
     return render(request, 'psd.html', context)
 
-def resultadospregunta(request, prespondida_pk):
-	respondida = get_object_or_404(PreguntasRespondidas, pk=prespondida_pk)
-    
-	context = {
-		'respondida':respondida
-	}
-	return render(request, 'retroalimentacion.html', context)
-
-
 
 @login_required
-def retroalimentacion(request):
-	return render(request, 'retroalimentacion.html')
+def resultadospregunta(request, prespondida_pk):           #proporciona los datos para poder mostrar los resultados en la retroalimentacion               
+    respondida = get_object_or_404(PreguntasRespondidas, pk=prespondida_pk)
+    retroalimentacion = respondida.pregunta.retroalimentacion
+        
+    context = {
+        'respondida': respondida,
+        'retroalimentacion_pregunta': retroalimentacion,
+    }
+    return render(request, 'retroalimentacion.html', context)
+
+
+
 
