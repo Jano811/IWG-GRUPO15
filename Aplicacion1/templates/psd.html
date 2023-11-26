@@ -2,7 +2,7 @@
 {% block content %}
     <br>
     <div class="container">
-        <h2>Cuestionario</h2>
+        <h2 style="text-align: center;">Cuestionario</h2>
         <form method="POST">
             {% csrf_token %}
                 <input type="hidden" name="pregunta_pk" value="{{ pregunta.id }}">
