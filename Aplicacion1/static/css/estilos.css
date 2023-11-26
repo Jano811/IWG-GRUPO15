@@ -23,6 +23,7 @@ body{
     top: 190px;
 }
 .borde{
+    background-color: rgba(255, 255, 255, 0.3); /* Cambia la transparencia ajustando el valor de 'a' */
     border: 2px solid #333; /* Ancho, estilo y color del borde */
     padding: 10px;
     margin: 0 auto;
@@ -41,3 +42,6 @@ body{
 .bond{
     font-weight: bold;
 }
+.navbar {
+    z-index: 1000; /* Puedes ajustar este valor según sea necesario */
+  }
