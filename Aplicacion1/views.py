@@ -34,6 +34,10 @@ def cuestionario(request):
     return render(request,'cuestionario.html')
 
 @login_required
+def nosotros(request):
+    return render(request,'nosotros.html')
+
+@login_required
 def inicio(request):
     return render(request,'inicio.html')
 
