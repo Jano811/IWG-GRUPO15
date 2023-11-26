@@ -9,7 +9,7 @@ class preguntas(models.Model):   #creacion de preguntas
 
     texto = models.TextField(verbose_name='texto de pregunta')
     max_puntaje = models.DecimalField(verbose_name='Maximo Puntaje', default=1, decimal_places=0, max_digits=6)
-    retroalimentacion = models.TextField(verbose_name='Retroalimentación', blank=True)
+    retroalimentacion = models.TextField(verbose_name='Retroalimentacion', blank=True)
     def __str__(self):
         return self.texto
     
@@ -56,13 +56,14 @@ class Usuario(models.Model):     #saber quien respondio
             pregunta_respondida.respuesta = respuesta_seleccionada
 
         else:
-            #pregunta_respondida.correcta = False
+            pregunta_respondida.correcta = False
             pregunta_respondida.respuesta = respuesta_seleccionada
 
         pregunta_respondida.save() 
         self.actualizar_puntaje()
 
     def actualizar_puntaje(self):
+        print(True)
     # Filtrar preguntas respondidas del usuario actual
         preguntas_respondidas = PreguntasRespondidas.objects.filter(quizuser=self)
     # Filtrar las preguntas respondidas que son correctas
@@ -70,7 +71,7 @@ class Usuario(models.Model):     #saber quien respondio
     # Calcular el puntaje total sumando los puntajes obtenidos de las preguntas correctas
         puntaje_actualizado = preguntas_correctas.aggregate(models.Sum('puntaje_obtenido'))['puntaje_obtenido__sum']
     # Actualizar el puntaje total del usuario
-        self.puntajetotal = puntaje_actualizado
+        self.puntajetotal = puntaje_actualizado if puntaje_actualizado is not None else 0
         self.save()
 
 
@@ -79,7 +80,7 @@ class PreguntasRespondidas(models.Model):       #guarda las preguntas respondida
     pregunta = models.ForeignKey(preguntas, on_delete=models.CASCADE)
     respuesta =models.ForeignKey(respuestas, on_delete=models.CASCADE,null=True)
     correcta = models.BooleanField(verbose_name='es correcta',default=False,null=False)
-    puntaje_obtenido = models.DecimalField(verbose_name='Puntaje',default=0,decimal_places=2,max_digits=6)
+    puntaje_obtenido = models.DecimalField(verbose_name='Puntaje',default=0,decimal_places=0,max_digits=6)
     def __str__(self):
         return f"{self.quizuser.usuario.username} - {self.pregunta.texto}"   #texto de admin preguntas respondidas
 

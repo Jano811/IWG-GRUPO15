@@ -57,7 +57,7 @@ def psd(request):
         prespondida.correcta = opcionselect.correcta
         prespondida.puntaje_obtenido = opcionselect.pregunta.max_puntaje if opcionselect.correcta else 0
         prespondida.save()
-
+        qusuario.intento_valido(prespondida, opcionselect)  #llama a intento valido para sumar puntos totales en el perfil
         return redirect('retroalimentacion_url', prespondida.pk)   
 
     else:
