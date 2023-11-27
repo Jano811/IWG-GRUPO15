@@ -20,7 +20,10 @@ def register(request):  #formulario de registro, se guarda en la base de datos
         user_creation_form = NewRegister(data=request.POST)
         if user_creation_form.is_valid():
             user_creation_form.save()
+            region = user_creation_form.cleaned_data.get('region')   #almacena el registro de comuna y region 
+            comuna = user_creation_form.cleaned_data.get('comuna')
             user=authenticate(username=user_creation_form.cleaned_data['username'],password=user_creation_form.cleaned_data['password1'])
+            usuario = Usuario.objects.create(usuario=user, region=region, comuna=comuna)  #muestra el campo relleno de region y comuna
             login(request,user)  
             return redirect('iniciodesesion')
         else:

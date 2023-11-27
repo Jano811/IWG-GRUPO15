@@ -1,14 +1,17 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import preguntas, respuestas 
+from .models import preguntas
 
 class NewRegister(UserCreationForm):
-    email= forms.EmailField(required=True)    
+    email= forms.EmailField(required=True)   
+    region = forms.CharField(max_length=40, required=False)  #campo de region y comuna en el registro
+    comuna = forms.CharField(max_length=40, required=False)
+
     class Meta:
         model=User
         fields=['username','first_name','last_name','email','password1','password2'] #register pide esos datos
-    
+
     
     def clean_email(self):  #revision y aviso de correo ya usado
         email=self.cleaned_data['email']

@@ -27,9 +27,12 @@ class respuestas(models.Model):   #creacion de las respuestas
         return self.texto
 
 
-class Usuario(models.Model):     #saber quien respondio
+class Usuario(models.Model):     #Usuario para identificar quien es el que responde
     usuario= models.OneToOneField(User, on_delete=models.CASCADE)
     puntajetotal= models.DecimalField(verbose_name='puntaje total',default=0,decimal_places=0,max_digits=10)
+    region = models.CharField(verbose_name='Región', max_length=100, blank=True, null=True)   #campos de region y comuna asociados al usuario
+    comuna = models.CharField(verbose_name='Comuna', max_length=100, blank=True, null=True)
+
     def __str__(self):
         return f"{self.usuario.username}"             #muestra el nombre del usuario de la pregunta respondida en el admin
     
@@ -39,9 +42,7 @@ class Usuario(models.Model):     #saber quien respondio
 
     def nuevas_preguntas(self):
         respondidas = PreguntasRespondidas.objects.filter(quizuser=self).values_list('pregunta__pk', flat=True)
-        print(respondidas)
         preguntas_restantes = preguntas.objects.exclude(pk__in=respondidas)
-        print(preguntas_restantes)
         if not preguntas_restantes.exists():
             return None
         return random.choice(preguntas_restantes)
@@ -64,7 +65,6 @@ class Usuario(models.Model):     #saber quien respondio
         self.actualizar_puntaje()
 
     def actualizar_puntaje(self):
-        print(True)
     # Filtrar preguntas respondidas del usuario actual
         preguntas_respondidas = PreguntasRespondidas.objects.filter(quizuser=self)
     # Filtrar las preguntas respondidas que son correctas

@@ -1,6 +1,17 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import preguntas, respuestas, PreguntasRespondidas, Usuario
+from django.contrib.auth.models import User
 from .forms import ElegirUnaRespuestaCorrecta
+
+class UsuarioInline(admin.StackedInline):  
+    model = Usuario
+    can_delete = False
+    verbose_name_plural = 'Datos del Usuario'
+    fields = ('region', 'comuna')
+
+class UserAdmin(BaseUserAdmin):  #usuarioinliney useradmin personalizan la interfaz del admin con informacion del modelo Usuario
+    inlines = (UsuarioInline,)
 
 class ElegirRespuestaInline(admin.TabularInline):    #muestre en una tabla las respuestas
     model= respuestas
@@ -21,7 +32,8 @@ class preguntasrespondidasAdmin(admin.ModelAdmin):
     class Meta:
         model= PreguntasRespondidas
 
-
+admin.site.unregister(User)  #para que muestre un modelo personalizado del usuario.
+admin.site.register(User, UserAdmin)
 admin.site.register(PreguntasRespondidas)
 admin.site.register(preguntas,PreguntaAdmin)
 admin.site.register(respuestas)
