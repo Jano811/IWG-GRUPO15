@@ -9,6 +9,7 @@ body{
     top:50%;
     right:50%; 
     transform: translate(50%, -50%);
+    background-color: rgba(255, 255, 255, 0.3);
 }
 #texto{
     font-family: verdana;
@@ -45,3 +46,10 @@ body{
 .navbar {
     z-index: 1000; /* Puedes ajustar este valor según sea necesario */
   }
+#boton{
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

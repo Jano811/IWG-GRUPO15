@@ -1,11 +1,9 @@
 {% extends 'barra.html' %}
 {% block content %}
-<div class="card border-secondary mb-3" style="max-width: 20rem; background-color: rgba(255, 255, 255, 0.5);">
-  <div class="card-body">
-      <h4 class="card-title"> Las preguntas de este cuestionario trataran de.....
-          <div class="container">
-          <a button type="button" class="btn btn-dark"/button href="{% url 'psd_url' %}">Comenzar</a> <!--lo mismo que lo anterior falto poner el _url para qure funcione-->
-      </h4>
+<div class="borde">
+  <div id="boton" class="container">
+    <p>Bienvenido/a al cuestionario. Este estudio tiene como objetivo comprender las experiencias y percepciones de las personas en relación con la  inclusión y no discriminación en diferentes contextos de la vida.  sabemos que este tema es un fenómeno complejo que afecta a individuos y comunidades en todo el mundo, y este cuestionario busca arrojar luz sobre sus diversas manifestaciones.</p>
+    <a button type="button" style="display: inline-block;" class="btn btn-dark"/button href="{% url 'psd_url' %}">Comenzar</a> <!--lo mismo que lo anterior falto poner el _url para qure funcione-->
   </div>
 </div>
 {% endblock %}
