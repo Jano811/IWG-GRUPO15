@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect,get_object_or_404
-from .forms import NewRegister#,RespuestaForm 
+from .forms import NewRegister, UsuarioForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from .models import Usuario, PreguntasRespondidas,respuestas
 from django.http import HttpResponseBadRequest 
-
 
 def iniciodesesion(request):
     return render(request,'iniciodesesion.html')
@@ -52,7 +51,7 @@ def psd(request):
         respuesta_pk = request.POST.get('respuesta_pk')
         print(f"pregunta_pk: {pregunta_pk}")
         if not pregunta_pk or not respuesta_pk:
-            return HttpResponseBadRequest("El identificador de la pregunta no se proporcionó correctamente.")
+            return HttpResponseBadRequest("Porfavor responda a la pregunta, vuelva atras")
 
         prespondida, created = PreguntasRespondidas.objects.get_or_create(quizuser=qusuario,pregunta=pregunta_pk)
 
@@ -88,6 +87,20 @@ def resultadospregunta(request, prespondida_pk):           #proporciona los dato
     }
     return render(request, 'retroalimentacion.html', context)
 
+@login_required
+def perfil(request):
+    usuario = request.user
+    return render(request, 'perfil.html', {'usuario': usuario})
 
+def editarperfil(request):
+    usuario = request.user
 
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect('perfil') 
+    else:
+        form = UsuarioForm(instance=usuario)
 
+    return render(request, 'editarperfil.html', {'form': form})

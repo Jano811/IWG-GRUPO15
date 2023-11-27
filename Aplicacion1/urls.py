@@ -1,5 +1,5 @@
-from django.urls import include, path
-from .views import iniciodesesion, register, inicio, cuestionario, psd, resultadospregunta, nosotros
+from django.urls import path
+from .views import iniciodesesion, register, inicio, cuestionario, psd, resultadospregunta, nosotros, perfil, editarperfil
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
@@ -12,4 +12,6 @@ urlpatterns = [
     path('psd/',psd,name="psd_url"),
     path('retroalimentacion/<int:prespondida_pk>/',resultadospregunta,name="retroalimentacion_url"),
     path('nosotros/',nosotros,name="nosotros"),
+    path('perfil/',perfil, name='perfil'),
+    path('editarperfil/', editarperfil, name='editarperfil'),
 ]
