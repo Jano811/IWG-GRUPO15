@@ -134,3 +134,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 LOGIN_REDIRECT_URL = '/inicio/'
 
 LOGOUT_REDIRECT_URL = '/'
+
+import os 
+IMAGEN_URL='/pregunta_imagenes/'
+IMAGEN_ROOT=os.path.join(BASE_DIR,'pregunta_imagenes')
+

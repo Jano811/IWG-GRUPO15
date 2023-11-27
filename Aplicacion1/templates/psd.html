@@ -6,6 +6,9 @@
         <form method="POST">
             {% csrf_token %}
                 <input type="hidden" name="pregunta_pk" value="{{ pregunta.id }}">
+                {% if pregunta.imagen %}
+                <img src="{{ pregunta.imagen.url }}" alt="Imagen de la pregunta" style="max-width: 300px;">
+            {% endif %}
                 <div class="container">
                     <div class="preguntas">
                         <h3>{{ pregunta.texto }}</h3>

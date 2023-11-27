@@ -10,6 +10,7 @@ class preguntas(models.Model):   #creacion de preguntas
     texto = models.TextField(verbose_name='texto de pregunta')
     max_puntaje = models.DecimalField(verbose_name='Maximo Puntaje', default=1, decimal_places=0, max_digits=6)
     retroalimentacion = models.TextField(verbose_name='Retroalimentacion', blank=True)
+    imagen = models.ImageField(upload_to='pregunta_imagenes/', null=True, blank=True, verbose_name='Imagen de la pregunta')
     def __str__(self):
         return self.texto
     
