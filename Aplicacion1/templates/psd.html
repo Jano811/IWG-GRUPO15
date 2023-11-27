@@ -7,7 +7,10 @@
             {% csrf_token %}
                 <input type="hidden" name="pregunta_pk" value="{{ pregunta.id }}">
                 {% if pregunta.imagen %}
-                <img src="{{ pregunta.imagen.url }}" alt="Imagen de la pregunta" style="max-width: 300px;">
+                <div class="contenedor">
+                    <p class="referencia">Imagen de refencia</p>
+                    <img src="{{ pregunta.imagen.url }}" alt="Imagen de la pregunta">
+                </div>
             {% endif %}
                 <div class="container">
                     <div class="preguntas">
@@ -16,7 +19,7 @@
                             <div class="container">
                                 {% for respuesta in pregunta.opciones.all %}
                                     <li>
-                                        <input type="radio" name="respuesta_pk" value="{{ respuesta.id }}"> 
+                                        <input class="form-check-input" type="radio" name="respuesta_pk" value="{{ respuesta.id }}"> 
                                         {{ respuesta.texto }} 
                                     </li>
                                 {% endfor %}

@@ -53,3 +53,37 @@ body{
     align-items: center;
     justify-content: center;
 }
+.contenedor{
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+}
+img{
+    position:absolute;
+    max-width: 100%;
+    top: 65%;
+}
+.referencia{
+    position:absolute;
+    top: 85%;
+}
+@media screen and (max-width: 600px){
+    .contenedor{
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Centrado horizontal */
+        align-items: center; /* Centrado vertical */
+    }
+    img{
+        position: absolute;
+        top: 85%;
+    }
+    .referencia{
+        font-size: 1.2em;
+        position:absolute;
+        width: 90%;
+        top: 108%;
+        text-align: center;
+    }
+}
