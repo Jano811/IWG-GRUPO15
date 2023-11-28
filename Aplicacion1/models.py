@@ -33,7 +33,7 @@ class Usuario(models.Model):     #Usuario para identificar quien es el que respo
     region = models.CharField(verbose_name='Región', max_length=100, blank=True, null=True)   #campos de region y comuna asociados al usuario
     comuna = models.CharField(verbose_name='Comuna', max_length=100, blank=True, null=True)
     birth_date = models.DateField(verbose_name='Cumpleaños',null=True, blank=True)
-    gender = models.CharField(verbose_name='Genero',max_length=40, blank=True)
+    gender = models.CharField(verbose_name='Genero',max_length=40, blank=True, null=True)
 
     def __str__(self):
         return f"{self.usuario.username}"             #muestra el nombre del usuario de la pregunta respondida en el admin

@@ -16,7 +16,9 @@ class NewRegister(UserCreationForm):
     class Meta:
         model=User
         fields=['username','first_name','last_name', 'email', 'password1', 'password2', 'region', 'comuna', 'birth_date', 'gender'] #register pide esos datos
-
+        widgets = {
+        'username': forms.TextInput(attrs={'autocomplete': 'off'}),
+    }
     
     def clean_email(self):  #revision y aviso de correo ya usado
         email=self.cleaned_data['email']
@@ -50,3 +52,10 @@ class UsuarioForm(forms.ModelForm):  #para cambiar los datos del perfil
             'birth_date': forms.DateInput(attrs={'type': 'date'}),
         } 
 
+class CustomUserCreationForm(UserCreationForm):
+    birth_date = forms.DateField(label='Fecha de nacimiento')
+    gender = forms.CharField(label='Género')
+
+    class Meta(UserCreationForm.Meta):
+        # Puedes añadir más configuraciones si es necesario
+        pass

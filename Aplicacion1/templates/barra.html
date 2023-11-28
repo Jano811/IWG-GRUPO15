@@ -19,17 +19,24 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'perfil' %}">Perfil</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'nosotros' %}">Sobre Nosotros</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesion</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'nosotros' %}">Sobre Nosotros</a>
+              </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'nosotros' %}">Sobre Nosotros</a>
+                </li>
+              {% endif %}
             </ul>
           </div>
         </div>

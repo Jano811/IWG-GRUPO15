@@ -1,4 +1,6 @@
+{% extends 'barra.html' %}
 {% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,11 +22,12 @@
                 <div class="mb-3">
                     <label for="username" class="form-label">Nombre de Usuario</label>           <!--cambio de nombredeusuario a username, asi deberia leer la tabla de la base de datos-->
                       <input type="text" name='username'class="form-control" id="Nombredeusuario" aria-describedby="emailHelp"> <!--agregue el name=username-->
-                      <div id="emailHelp" class="form-text">Nunca compartas tu contraseña.</div>
+                      
                     </div>
                     <div class="mb-3">
                       <label for="password" class="form-label">Ingrese su contraseña</label>
-                      <input type="password" name="password" class="form-control" id="password">  <!--falataba name=password por eso no iniciaba sesion-->
+                      <input type="password" name="password" class="form-control" id="password">
+                      <div id="emailHelp" class="form-text">Nunca compartas tu contraseña.</div>  <!--falataba name=password por eso no iniciaba sesion-->
                     </div>
                     <div class="mb-3 form-check">
                       <input type="checkbox" class="form-check-input" id="recordar">
@@ -36,5 +39,6 @@
           </div>
     </form>
     </div>
+    {% endblock %}
 </body>
 </html>

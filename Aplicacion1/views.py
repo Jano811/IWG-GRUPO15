@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from .models import Usuario, PreguntasRespondidas,respuestas
 from django.http import HttpResponseBadRequest 
+from .forms import CustomUserCreationForm
 
 def iniciodesesion(request):
     return render(request,'iniciodesesion.html')
@@ -21,10 +22,10 @@ def register(request):  #formulario de registro, se guarda en la base de datos
             user_creation_form.save()
             region = user_creation_form.cleaned_data.get('region')   #almacena el registro de comuna y region 
             comuna = user_creation_form.cleaned_data.get('comuna')
-            birth_date = user_creation_form.cleaned_data.get('birth_date')
-            gender = user_creation_form.cleaned_data.get('gender')
+            birth_date = user_creation_form.cleaned_data.get('fecha de nacimiento')
+            gender = user_creation_form.cleaned_data.get('genero')
             user=authenticate(username=user_creation_form.cleaned_data['username'],password=user_creation_form.cleaned_data['password1'])
-            usuario = Usuario.objects.create(usuario=user, region=region, comuna=comuna, birth_date=birth_date,gender=gender)  #muestra el campo relleno de region y comuna
+            usuario = Usuario.objects.create(usuario=user, region=region, comuna=comuna, birth_date=birth_date,gender=gender)  #muestra los campos de relleno en register
             login(request,user)  
             return redirect('iniciodesesion')
         else:
@@ -37,7 +38,6 @@ def register(request):  #formulario de registro, se guarda en la base de datos
 def cuestionario(request):
     return render(request,'cuestionario.html')
 
-@login_required
 def nosotros(request):
     return render(request,'nosotros.html')
 

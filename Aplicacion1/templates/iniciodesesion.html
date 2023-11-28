@@ -1,4 +1,6 @@
+{% extends 'barra.html' %}
 {% load static %}
+{% block content %}  
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,7 +21,7 @@
           <div class="card-body">
             <h4 class="card-title"> 
               <div class="container my-4"> 
-              {% block content %}            
+                        
               {% if user.is_authenticated %}
                   <a button type="button" class="btn btn-dark"/button href="{% url 'logout' %}">Salir</a>
                   <a button type="button" class="btn btn-dark"/button href="{% url 'inicio' %}">Inicio</a>
