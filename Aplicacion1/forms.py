@@ -7,10 +7,15 @@ class NewRegister(UserCreationForm):
     email= forms.EmailField(required=True)   
     region = forms.CharField(max_length=40, required=False)  #campo de region y comuna en el registro
     comuna = forms.CharField(max_length=40, required=False)
+    birth_date = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}),  # Utiliza un widget de fecha
+        required=False
+    )
+    gender = forms.CharField(max_length=40, required=False)
 
     class Meta:
         model=User
-        fields=['username','first_name','last_name','email','password1','password2'] #register pide esos datos
+        fields=['username','first_name','last_name', 'email', 'password1', 'password2', 'region', 'comuna', 'birth_date', 'gender'] #register pide esos datos
 
     
     def clean_email(self):  #revision y aviso de correo ya usado
@@ -40,4 +45,8 @@ class ElegirUnaRespuestaCorrecta(forms.BaseInlineFormSet):
 class UsuarioForm(forms.ModelForm):  #para cambiar los datos del perfil
     class Meta:
         model = Usuario
-        fields = ['username','email','region', 'comuna']  
+        fields = ['region', 'comuna','birth_date', 'gender'] 
+        widgets = {
+            'birth_date': forms.DateInput(attrs={'type': 'date'}),
+        } 
+

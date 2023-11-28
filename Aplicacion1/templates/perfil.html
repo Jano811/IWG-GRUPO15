@@ -1,1 +1,18 @@
-<title>Mi Perfil</title>
+{% extends 'barra.html' %}
+{% block content %}
+<div class="profile-container">
+    <h2 style="text-align: center;">Perfil de {{ user.username }}</h2>
+
+    <div class="profile-info">
+        <h3>Información del perfil</h3>
+        <p><strong>Nombre:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><strong>Correo electrónico:</strong> {{ user.email }}</p>
+        <p><strong>Fecha de nacimiento:</strong> {{ user.usuario.birth_date|date:"F j, Y" }}</p>
+        <p><strong>Género:</strong> {{ user.usuario.gender }}</p>
+        <p><strong>Región:</strong> {{ user.usuario.region }}</p>
+        <p><strong>Comuna:</strong> {{ user.usuario.comuna }}</p>
+    </div>
+    <a button type="button" class="btn btn-dark"/button href="{% url 'editarperfil' %}">editar perfil</a>
+</div>
+
+{% endblock %}
