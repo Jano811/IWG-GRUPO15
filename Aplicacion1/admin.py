@@ -8,9 +8,9 @@ class UsuarioInline(admin.StackedInline):
     model = Usuario
     can_delete = False
     verbose_name_plural = 'Datos del Usuario'
-    fields = ('region', 'comuna')
+    fields = ('region', 'comuna','birth_date','gender')
 
-class UserAdmin(BaseUserAdmin):  #usuarioinliney useradmin personalizan la interfaz del admin con informacion del modelo Usuario
+class UserAdmin(BaseUserAdmin):  #usuarioinline y useradmin personalizan la interfaz del admin con informacion del modelo Usuario
     inlines = (UsuarioInline,)
 
 class ElegirRespuestaInline(admin.TabularInline):    #muestre en una tabla las respuestas

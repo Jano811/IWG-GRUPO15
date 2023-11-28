@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from .models import Usuario, PreguntasRespondidas,respuestas
 from django.http import HttpResponseBadRequest 
-from .forms import CustomUserCreationForm
 
 def iniciodesesion(request):
     return render(request,'iniciodesesion.html')
@@ -22,8 +21,8 @@ def register(request):  #formulario de registro, se guarda en la base de datos
             user_creation_form.save()
             region = user_creation_form.cleaned_data.get('region')   #almacena el registro de comuna y region 
             comuna = user_creation_form.cleaned_data.get('comuna')
-            birth_date = user_creation_form.cleaned_data.get('fecha de nacimiento')
-            gender = user_creation_form.cleaned_data.get('genero')
+            birth_date = user_creation_form.cleaned_data.get('birth_date')
+            gender = user_creation_form.cleaned_data.get('gender')
             user=authenticate(username=user_creation_form.cleaned_data['username'],password=user_creation_form.cleaned_data['password1'])
             usuario = Usuario.objects.create(usuario=user, region=region, comuna=comuna, birth_date=birth_date,gender=gender)  #muestra los campos de relleno en register
             login(request,user)  
@@ -106,3 +105,11 @@ def editarperfil(request):
         form = UsuarioForm(instance=usuario)
 
     return render(request, 'editarperfil.html', {'form': form})
+
+
+def retroalimentacion(request):
+    # Obtén la lista de preguntas respondidas para el usuario actual
+    preguntas_respondidas = PreguntasRespondidas.objects.filter(quizuser=request.user.usuario)
+
+    # Renderiza la plantilla con la lista de preguntas respondidas
+    return render(request, 'tu_template.html', {'preguntas_respondidas': preguntas_respondidas})

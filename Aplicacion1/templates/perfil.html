@@ -11,8 +11,10 @@
         <p><strong>Género:</strong> {{ user.usuario.gender|default:"no registrado" }}</p>
         <p><strong>Región:</strong> {{ user.usuario.region|default:"no registrado" }}</p>
         <p><strong>Comuna:</strong> {{ user.usuario.comuna|default:"no registrado" }}</p>
+        <p><strong>Puntaje Total:</strong> {{ user.usuario.puntajetotal }}</p>
     </div>
     <a button type="button" class="btn btn-dark"/button href="{% url 'editarperfil' %}">editar perfil</a>
+    
 </div>
 
 {% endblock %}

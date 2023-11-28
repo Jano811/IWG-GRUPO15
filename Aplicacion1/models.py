@@ -16,7 +16,7 @@ class preguntas(models.Model):   #creacion de preguntas
     
 
 class respuestas(models.Model):   #creacion de las respuestas
-
+    
     max_respuesta=4   #maximo numero de respuestas a escribir
 
     pregunta = models.ForeignKey(preguntas, related_name='opciones', on_delete=models.CASCADE)
