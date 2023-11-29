@@ -2,7 +2,6 @@
 {% block content %}
     <br>
     <div class="container">
-        <h2 style="text-align: center;">Cuestionario</h2>
         <form method="POST">
             {% csrf_token %}
                 <input type="hidden" name="pregunta_pk" value="{{ pregunta.id }}">
@@ -14,6 +13,7 @@
             {% endif %}
                 <div class="container">
                     <div class="preguntas">
+                        <h2 class="psd" style="text-align: center;">Cuestionario</h2>
                         <h3>{{ pregunta.texto }}</h3>
                         <ul>
                             <div class="container">
@@ -27,7 +27,7 @@
                         </ul>
                         {% if request.method == 'POST' and not pregunta_pk %}
                         <p style="color: red;">Debes seleccionar una respuesta para continuar.</p>
-                    {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="container">
