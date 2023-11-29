@@ -1,12 +1,13 @@
 {% extends 'barra.html' %}
+{% load static %}
 {% block content %}
+<img class="inclusion" src="{% static 'imagenes/inclusion.png' %}" alt="Botón">
+<img class="inclusio" src="{% static 'imagenes/xd.png' %}" alt="Botón">
 <div class="card border-secondary mb-3" style="max-width: 20rem;">
-  <div class="card-body">
-      <h4 class="card-title"> 
-          <div class="container">
-              <a button type="button" class="btn btn-dark"/button href="{% url 'cuestionario_url' %}">Iniciar cuestionario</a> <!--falto poner el _url en el cuestionario para que funcione-->
-          </div>
-      </h4>
+  <div id="fuente" class="card-body">
+        <div class="container">
+            <a button type="button" class="btn btn-dark"/button href="{% url 'cuestionario_url' %}">Iniciar cuestionario</a> <!--falto poner el _url en el cuestionario para que funcione-->
+        </div>
   </div>
 </div>
 {% endblock %}

@@ -38,7 +38,7 @@ body{
         right:50%; 
         transform: translate(50%, -50%);
         background-color: rgba(255, 255, 255, 0.3);
-        width: 90%;
+        width: 80%;
         display: flex;
         justify-content: center; /* Centrado horizontal */
         align-items: center; /* Centrado vertical */
@@ -48,6 +48,7 @@ body{
 .borde{
     background-color: rgba(255, 255, 255, 0.3); /* Cambia la transparencia ajustando el valor de 'a' */
     border: 2px solid #333; /* Ancho, estilo y color del borde */
+    border-radius: 20px;
     padding: 10px;
     margin: 0 auto;
     font-size: 1.2em;
@@ -60,6 +61,7 @@ body{
     .borde {
         width: 90%; /* Ajusta el ancho para pantallas más pequeñas */
         font-size: 0.8em;
+        border-radius: 20px;
     }
 }
 .bond{
@@ -91,7 +93,8 @@ img{
 }
 .referencia{
     position:absolute;
-    top: 85%;
+    top: 86%;
+    font-size: 1.2em;
 }
 @media screen and (max-width: 600px){
     .contenedor{
@@ -135,14 +138,79 @@ img{
         right:50%; 
         transform: translate(50%, -50%);
     }
-
 }
 .registro{
     background-color: rgba(255, 255, 255, 0.3); /* Cambia la transparencia ajustando el valor de 'a' */
     border: 2px solid #333; /* Ancho, estilo y color del borde */
     border-radius: 15px;
-    padding: 10px;
     margin: 0 auto;
     font-size: 1.2em;
     padding: 50px;
+}
+.inclusion{
+    width: 500px; /* Ajusta según tus necesidades */
+    height: auto; /* Mantiene la proporción original de la imagen */
+    position: absolute; 
+    right:60%;
+    top: 150px;
+}
+.inclusio{
+    width: 500px; /* Ajusta según tus necesidades */
+    height: auto; /* Mantiene la proporción original de la imagen */
+    position: absolute; 
+    left:60%;
+    top: 150px;
+}
+@media screen and (max-width: 600px){
+    .inclusion{
+        width: 230px; /* Ajusta según tus necesidades */
+        height: auto; /* Mantiene la proporción original de la imagen */
+        position: absolute; 
+        right:20%;
+        top: 100px;
+    }
+    .inclusio{
+        max-width: 100%;
+        width: 230px; /* Ajusta según tus necesidades */
+        height: auto; /* Mantiene la proporción original de la imagen */
+        position: absolute; 
+        left:21%;
+        top: 450px;
+    }
+}
+
+.card-body{
+    position: relative;
+}
+.preguntas{
+    margin-top: 5%;
+}
+.jumbotron{
+    width: 90%;
+    position: absolute;
+    top: 15%;
+    border: 2px solid #333; /* Ancho, estilo y color del borde */
+    border-radius: 20px;
+    padding: 50px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.3); 
+
+}
+@media screen and (max-width: 600px){
+    .preguntas{
+        width: 90%;
+        margin-top: 13%;
+    }
+    .jumbotron{
+        right: 20px;
+        width: 90%;
+        position: absolute;
+        top: 10%;
+        border: 2px solid #333; /* Ancho, estilo y color del borde */
+        border-radius: 20px;
+        padding: 50px;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.3);
+
+    }
 }
