@@ -2,16 +2,75 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import preguntas, Usuario
+GENDER_CHOICES = [
+    ('', 'Seleccionar genero'),
+    ('masculino', 'Masculino'),
+    ('femenino', 'Femenino'),
+    ('otros', 'Otros'),
+]
+COMUNAS = [
+    ('', 'Seleccionar comuna'),
+    ('cerro_navia', 'Cerro Navia'),
+    ('conchali', 'Conchalí'),
+    ('el_bosque', 'El Bosque'),
+    ('estacion_central', 'Estación Central'),
+    ('huechuraba', 'Huechuraba'),
+    ('independencia', 'Independencia'),
+    ('la_cisterna', 'La Cisterna'),
+    ('la_florida', 'La Florida'),
+    ('la_granja', 'La Granja'),
+    ('la_pintana', 'La Pintana'),
+    ('la_reina', 'La Reina'),
+    ('las_condes', 'Las Condes'),
+    ('lo_barnechea', 'Lo Barnechea'),
+    ('lo_espejo', 'Lo Espejo'),
+    ('lo_prado', 'Lo Prado'),
+    ('macul', 'Macul'),
+    ('maipu', 'Maipú'),
+    ('nunoa', 'Ñuñoa'),
+    ('padre_hurtado', 'Padre Hurtado'),
+    ('pedro_aguirre_cerda', 'Pedro Aguirre Cerda'),
+    ('penalolen', 'Peñalolén'),
+    ('providencia', 'Providencia'),
+    ('pudahuel', 'Pudahuel'),
+    ('puente_alto', 'Puente Alto'),
+    ('quilicura', 'Quilicura'),
+    ('quinta_normal', 'Quinta Normal'),
+    ('recoleta', 'Recoleta'),
+    ('renca', 'Renca'),
+    ('san_bernardo', 'San Bernardo'),
+    ('san_joaquin', 'San Joaquín'),
+    ('san_miguel', 'San Miguel'),
+    ('san_ramón', 'San Ramón'),
+    ('vitacura', 'Vitacura'),
+]
+REGIONES = [
+    ('', 'Seleccionar Region'),
+    ('metropolitana', 'Metropolitana'),
+]
+
 
 class NewRegister(UserCreationForm):
     email= forms.EmailField(required=True)   
-    region = forms.CharField(max_length=40, required=False)  #campo de region y comuna en el registro
-    comuna = forms.CharField(max_length=40, required=False)
+    region = forms.CharField(
+        max_length=40,
+        required=False,
+        widget=forms.Select(choices=REGIONES)
+    )  #campo de region y comuna en el registro
+    comuna = forms.CharField(
+        max_length=40, 
+        required=False,
+        widget=forms.Select(choices=COMUNAS)
+    )
     birth_date = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date'}),  # Utiliza un widget de fecha
         required=False
     )
-    gender = forms.CharField(max_length=40, required=False)
+    gender = forms.CharField(
+        max_length=40,
+        required=False,
+        widget=forms.Select(choices=GENDER_CHOICES)
+    )
 
     class Meta:
         model=User

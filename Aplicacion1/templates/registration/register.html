@@ -9,23 +9,22 @@
     <link type='text/css' href='{% static "css/estilos.css" %}' rel="stylesheet">
     <title>Registro</title>
     <br>
-    <h3>Registrate</h3>
+    <h3 style="text-align: center;">Registro del Usuario</h3>
     </div>
 </head>
 <body>
     <div class="container mb-4">
-{% block content %}
-
-{% load crispy_forms_tags %}
-            <form action="" method="post">
-                {% csrf_token %}
-                {{ form | crispy }}
-                <a button type="button" class="btn btn-dark"/button href={% url 'iniciodesesion' %} class="card-link">Volver</a> <!--boton para devolverse a inicio-->
-                <button class="btn btn-dark at-4" type="submit" >Registrarse</button>
-            </form>
+        <div class="registro">
+            {% block content %}
+            {% load crispy_forms_tags %}
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            <a button type="button" class="btn btn-dark"/button href={% url 'iniciodesesion' %} class="card-link">Volver</a> <!--boton para devolverse a inicio-->
+                            <button class="btn btn-dark at-4" type="submit" >Registrarse</button>
+                        </form>
+            {% endblock %}
         </div>
     </div>
-{% endblock %}
-    
 </body>
 </html>

@@ -1,4 +1,6 @@
 body{
+    padding-top: 1px; /* Ajusta este valor según la altura de tu barra de navegación */
+    margin: 0; /* Asegúrate de que no haya margen en el cuerpo */
     background: #ff9966;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #ff5e62, #ff9966);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #ff5e62, #ff9966); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -15,7 +17,7 @@ body{
     font-family: verdana;
     text-align: center;
     position: relative;
-    top: 100px;
+    top: 150px;
 }
 #inicio{
     font-family: verdana;
@@ -23,6 +25,26 @@ body{
     position: relative;
     top: 190px;
 }
+@media only screen and (max-width: 600px) {
+    #inicio{
+        font-family: verdana;
+        text-align: center;
+        position: relative;
+        top: 180px;
+    }
+    .card{
+        position: absolute; 
+        top:50%;
+        right:50%; 
+        transform: translate(50%, -50%);
+        background-color: rgba(255, 255, 255, 0.3);
+        width: 90%;
+        display: flex;
+        justify-content: center; /* Centrado horizontal */
+        align-items: center; /* Centrado vertical */
+    }
+}
+
 .borde{
     background-color: rgba(255, 255, 255, 0.3); /* Cambia la transparencia ajustando el valor de 'a' */
     border: 2px solid #333; /* Ancho, estilo y color del borde */
@@ -45,6 +67,8 @@ body{
 }
 .navbar {
     z-index: 1000; /* Puedes ajustar este valor según sea necesario */
+    top: 0;
+    width: 100%;
   }
 #boton{
     text-align: justify;
@@ -52,6 +76,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-size: 1.2em;
 }
 .contenedor{
     width: 100%;
@@ -111,4 +136,13 @@ img{
         transform: translate(50%, -50%);
     }
 
+}
+.registro{
+    background-color: rgba(255, 255, 255, 0.3); /* Cambia la transparencia ajustando el valor de 'a' */
+    border: 2px solid #333; /* Ancho, estilo y color del borde */
+    border-radius: 15px;
+    padding: 10px;
+    margin: 0 auto;
+    font-size: 1.2em;
+    padding: 50px;
 }
