@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import iniciodesesion, register, inicio, cuestionario, psd, resultadospregunta, nosotros, perfil, editarperfil
+from .views import iniciodesesion, register, inicio, cuestionario, psd, resultadospregunta, nosotros, perfil, editarperfil, fin
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
@@ -14,4 +14,5 @@ urlpatterns = [
     path('nosotros/',nosotros,name="nosotros"),
     path('perfil/',perfil, name='perfil'),
     path('editarperfil/', editarperfil, name='editarperfil'),
+    path('fin/', fin, name='fin')
 ]

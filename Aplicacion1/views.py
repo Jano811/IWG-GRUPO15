@@ -46,7 +46,11 @@ def inicio(request):
 
 @login_required
 def psd(request):
-    qusuario, created = Usuario.objects.get_or_create(usuario=request.user)  
+    qusuario, created = Usuario.objects.get_or_create(usuario=request.user)
+
+    if not qusuario.nuevas_preguntas():
+        return redirect('fin')
+
     if request.method == 'POST':                        #se manda a la base la respuesta marcada y verifica si es correcta o no 
         pregunta_pk = request.POST.get('pregunta_pk')
         respuesta_pk = request.POST.get('respuesta_pk')
@@ -106,10 +110,6 @@ def editarperfil(request):
 
     return render(request, 'editarperfil.html', {'form': form})
 
+def fin(request):
+    return render(request, 'fin.html')
 
-def retroalimentacion(request):
-    # Obtén la lista de preguntas respondidas para el usuario actual
-    preguntas_respondidas = PreguntasRespondidas.objects.filter(quizuser=request.user.usuario)
-
-    # Renderiza la plantilla con la lista de preguntas respondidas
-    return render(request, 'tu_template.html', {'preguntas_respondidas': preguntas_respondidas})

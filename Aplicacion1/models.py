@@ -46,7 +46,7 @@ class Usuario(models.Model):     #Usuario para identificar quien es el que respo
         respondidas = PreguntasRespondidas.objects.filter(quizuser=self).values_list('pregunta__pk', flat=True)
         preguntas_restantes = preguntas.objects.exclude(pk__in=respondidas)
         if not preguntas_restantes.exists():
-            return None
+            return preguntas_restantes.exists()
         return random.choice(preguntas_restantes)
 
     def intento_valido(self, pregunta_respondida, respuesta_seleccionada):
